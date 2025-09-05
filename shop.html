@@ -20,42 +20,109 @@ header {
   color: #5c2a07;
   position: relative;
 }
+
+h2 {
+  padding-left: 10%;
+  text-align: left;
+  margin-top: 30px;
+  color: #5c2a07;
+}
+
+.carousel-container {
+  width: 85%;
+  margin: 25px auto;
+  overflow: hidden;
+  position: relative;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.card {
+  flex: 0 0 15%;
+  margin: 10px;
+  padding: 15px;
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  text-align: center;
+  transition: transform 0.3s;
+}
+
+.card:hover { transform: translateY(-5px); }
+
+.card h3 { margin-bottom: 10px; color: #a0522d; }
+.card p { font-weight: bold; color: #444; }
+
+.btn {
+  padding: 8px 15px;
+  margin-top: 10px;
+  background: #ffb347;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+.btn:hover { background: #ff9933; }
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: transparent;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: bold;
+  z-index: 10;
+}
+.prev { left: 0; }
+.next { right: 0; }
+
   </style>
 </head>
 
 <body>
+
 <header>Лакомка - Магазин сладостей
 </header>
 
 <h2>Популярные товары</h2>
-<div>
-    <div data-name="Соевый батончик" data-price="15">
+<div class="carousel-container">
+  <button class="carousel-btn prev">&#10094;</button>
+  <div class="carousel-track">
+    <div class="card" data-name="Соевый батончик" data-price="15">
       <h3>Соевый батончик</h3>
       <p>15 ₽</p>
-      <button>В корзину</button>
+      <button class="btn">В корзину</button>
     </div>
-    <div data-name="Сникерс" data-price="50">
+    <div class="card" data-name="Сникерс" data-price="50">
       <h3>Сникерс</h3>
       <p>50 ₽</p>
-      <button>В корзину</button>
+      <button class="btn">В корзину</button>
     </div>
-    <div data-name="Шоколадный трюфель" data-price="55">
+    <div class="card" data-name="Шоколадный трюфель" data-price="55">
       <h3>Шоколадный трюфель</h3>
       <p>55 ₽</p>
-      <button>В корзину</button>
+      <button class="btn">В корзину</button>
     </div>
-    <div data-name="Птичье молоко" data-price="45">
+    <div class="card" data-name="Птичье молоко" data-price="45">
       <h3>Птичье молоко</h3>
       <p>45 ₽</p>
-      <button>В корзину</button>
+      <button class="btn">В корзину</button>
     </div>
-    <div data-name="Фруктовое желе" data-price="20">
+    <div class="card" data-name="Фруктовое желе" data-price="20">
       <h3>Фруктовое желе</h3>
       <p>20 ₽</p>
-      <button>В корзину</button>
+      <button class="btn">В корзину</button>
     </div>
   </div>
+  <button class="carousel-btn next">&#10095;</button>
 </div>
 
-</body>
 </html>
