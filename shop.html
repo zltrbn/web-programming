@@ -41,7 +41,7 @@ h2 {
 }
 
 .card {
-  flex: 0 0 15%;
+  flex: 0 0 calc(33.333% - 50px);
   margin: 10px;
   padding: 15px;
   background: #fff;
@@ -125,4 +125,39 @@ h2 {
   <button class="carousel-btn next">&#10095;</button>
 </div>
 
+<script>
+
+const track = document.querySelector(".carousel-track");
+const cards = document.querySelectorAll(".card");
+const prevBtn = document.querySelector(".prev");
+const nextBtn = document.querySelector(".next");
+
+let index = 0;
+
+function updateCarousel() {
+  const cardWidth = cards[0].offsetWidth + 20;
+  track.style.transform = `translateX(${-index * cardWidth}px)`;
+
+  prevBtn.disabled = index === 0;
+  nextBtn.disabled = index >= cards.length - 3;
+}
+
+nextBtn.addEventListener("click", () => {
+  if (index < cards.length - 3) {
+    index++;
+    updateCarousel();
+  }
+});
+
+prevBtn.addEventListener("click", () => {
+  if (index > 0) {
+    index--;
+    updateCarousel();
+  }
+});
+
+updateCarousel();
+
+</script>
+</body>
 </html>
