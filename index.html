@@ -115,6 +115,19 @@ h2 {
 
 .cart-total { text-align: right; font-weight: bold; margin-top: 10px; font-size: 18px; }
 
+.cart-link {
+  position: absolute;
+  top: 25%;
+  right: 5%;
+  background: #ffb347;
+  padding: 15px 35px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  color: #5c2a07;
+}
+.cart-link:hover { background: #ff9933; }
+
 .checkout-btn {
   display: block;
   margin: 15px auto;
@@ -164,12 +177,21 @@ h2 {
   cursor: pointer;
   font-weight: bold;
 }
+
+.card img {
+  width: 100%;
+  height: 150px;       /* одинаковая высота для всех */
+  object-fit: contain;   /* впихивает целиком */
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
   </style>
 </head>
 
 <body>
 
-<header>Лакомка - Магазин сладостей
+<header>Лакомка! <br>Магазин сладостей<br>
+  <a href="cart.html" class="cart-link">🛒<span id="cart-count">0</span> </a>
 </header>
 
 <h2>Популярные товары</h2>
@@ -177,50 +199,37 @@ h2 {
   <button class="carousel-btn prev">&#10094;</button>
   <div class="carousel-track">
     <div class="card" data-name="Соевый батончик" data-price="15">
+      <img src="images/pic1.jpeg" alt="Соевый батончик">
       <h3>Соевый батончик</h3>
       <p>15 ₽</p>
       <button class="btn">В корзину</button>
     </div>
     <div class="card" data-name="Сникерс" data-price="50">
+      <img src="images/pic2.jpeg" alt="Соевый батончик2">
       <h3>Сникерс</h3>
       <p>50 ₽</p>
       <button class="btn">В корзину</button>
     </div>
     <div class="card" data-name="Шоколадный трюфель" data-price="55">
+      <img src="images/pic3.jpeg" alt="Соевый батончик3">
       <h3>Шоколадный трюфель</h3>
       <p>55 ₽</p>
       <button class="btn">В корзину</button>
     </div>
     <div class="card" data-name="Птичье молоко" data-price="45">
+      <img src="images/pic4.jpeg" alt="Соевый батончик4">
       <h3>Птичье молоко</h3>
       <p>45 ₽</p>
       <button class="btn">В корзину</button>
     </div>
     <div class="card" data-name="Фруктовое желе" data-price="20">
+      <img src="images/pic5.jpeg" alt="Соевый батончик5">
       <h3>Фруктовое желе</h3>
       <p>20 ₽</p>
       <button class="btn">В корзину</button>
     </div>
   </div>
   <button class="carousel-btn next">&#10095;</button>
-</div>
-
-<div class="cart">
-  <h3>Ваша корзина</h3>
-  <div id="cart-items"></div>
-  <div class="cart-total">Итого: <span id="total">0</span> ₽</div>
-  <button class="checkout-btn" id="checkout">Оформить заказ</button>
-</div>
-
-<div class="modal" id="orderModal">
-  <div class="modal-content">
-    <h3>Оформление заказа</h3>
-    <input type="text" id="firstName" placeholder="Имя" required>
-    <input type="text" id="lastName" placeholder="Фамилия" required>
-    <input type="text" id="address" placeholder="Адрес доставки" required>
-    <input type="tel" id="phone" placeholder="Телефон" required>
-    <button id="createOrder">Создать заказ</button>
-  </div>
 </div>
 
 <script>
