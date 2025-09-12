@@ -231,17 +231,24 @@ const prevBtn = document.querySelector(".prev");
 const nextBtn = document.querySelector(".next");
 
 let index = 0;
+let cardsPerView = getCardsPerView();
+
+function getCardsPerView() {
+  if (window.innerWidth <= 768) return 1;   // телефон
+  if (window.innerWidth <= 1024) return 2;   // планшет
+  return 3;                                 // десктоп
+}
 
 function updateCarousel() {
   const cardWidth = cards[0].offsetWidth + 20;
   track.style.transform = `translateX(${-index * cardWidth}px)`;
 
   prevBtn.disabled = index === 0;
-  nextBtn.disabled = index >= cards.length - 3;
+  nextBtn.disabled = index >= cards.length - cardsPerView;
 }
 
 nextBtn.addEventListener("click", () => {
-  if (index < cards.length - 3) {
+  if (index < cards.length - cardsPerView) {
     index++;
     updateCarousel();
   }
@@ -254,78 +261,70 @@ prevBtn.addEventListener("click", () => {
   }
 });
 
+window.addEventListener("resize", () => {
+  cardsPerView = getCardsPerView();
+  if (index > cards.length - cardsPerView) {
+    index = cards.length - cardsPerView;
+  }
+  updateCarousel();
+});
+
 updateCarousel();
 
-let cart = JSON.parse(localStorage.getItem('cart')) || [];
-const cartItems = document.getElementById('cart-items');
-const totalEl = document.getElementById('total');
+let startX = 0;
+let endX = 0;
 
-function updateCart() {
-  cartItems.innerHTML = '';
-  let total = 0;
-  cart.forEach((item, i) => {
-    total += item.price * item.quantity;
-    const div = document.createElement('div');
-    div.className = 'cart-item';
-    div.innerHTML = `
-      <span>${item.name}</span>
-      <span>${item.price} ₽</span>
-      <input type="number" min="1" value="${item.quantity}" data-index="${i}">
-      <button data-index="${i}">Удалить</button>
-    `;
-    cartItems.appendChild(div);
-  });
-  totalEl.textContent = total;
-  localStorage.setItem('cart', JSON.stringify(cart));
+const carousel = document.querySelector(".carousel-track");
+
+carousel.addEventListener("touchstart", (e) => {
+  startX = e.touches[0].clientX;
+});
+
+carousel.addEventListener("touchend", (e) => {
+  endX = e.changedTouches[0].clientX;
+  handleSwipe();
+});
+
+function handleSwipe() {
+  let diffX = startX - endX;
+
+  if (diffX > 50) {
+    document.querySelector(".next").click();
+  }
+  else if (diffX < -50) {
+    document.querySelector(".prev").click();
+  }
 }
+
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
 document.querySelectorAll('.card .btn').forEach(btn => {
   btn.addEventListener('click', e => {
     const card = e.target.closest('.card');
     const name = card.dataset.name;
     const price = +card.dataset.price;
+
     const existing = cart.find(item => item.name === name);
-    if (existing) existing.quantity++;
-    else cart.push({name, price, quantity: 1});
-    updateCart();
+    if (existing) {
+      existing.quantity++;
+    } else {
+      cart.push({ name, price, quantity: 1 });
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+    alert(`${name} добавлен в корзину!`);
+	updateCartCount();
   });
 });
+updateCartCount();
 
-cartItems.addEventListener('input', e => {
-  if (e.target.type === 'number') {
-    const i = e.target.dataset.index;
-    cart[i].quantity = +e.target.value;
-    updateCart();
-  }
-});
+function updateCartCount() {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  let totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+  document.getElementById("cart-count").textContent = totalCount;
+}
 
-cartItems.addEventListener('click', e => {
-  if (e.target.tagName === 'BUTTON') {
-    const i = e.target.dataset.index;
-    cart.splice(i, 1);
-    updateCart();
-  }
-});
-
-updateCart();
-
-const modal = document.getElementById('orderModal');
-const checkoutBtn = document.getElementById('checkout');
-const createOrderBtn = document.getElementById('createOrder');
-
-checkoutBtn.addEventListener('click', () => {
-  if(cart.length === 0) { alert('Корзина пуста!'); return; }
-  modal.style.display = 'flex';
-});
-
-createOrderBtn.addEventListener('click', () => {
-  alert('Заказ создан!');
-  modal.style.display = 'none';
-  cart = [];
-  updateCart();
-});
-
-window.addEventListener('click', e => { if (e.target === modal) modal.style.display = 'none'; });
+updateCartCount();
 
 </script>
 </body>
