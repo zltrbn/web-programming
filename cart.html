@@ -128,12 +128,17 @@
       font-weight: bold;
     }
     .modal-content button:hover { background: #ff9933; }
+
+    @font-face {
+  font-family: 'MyCustomFont';
+  src: url('54-font.otf') format('opentype');
+  }
   </style>
 </head>
 
 <body>
-<header>
-  <a href="index.html" class="cart-btn">Назад</a>
+<header style='font-family: MyCustomFont'>
+  <a href="index.html" class="cart-btn" style='font-family: Arial'>Назад</a>
   Лакомка! Корзина
 </header>
 
