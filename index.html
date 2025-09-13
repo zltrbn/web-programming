@@ -165,12 +165,78 @@ h2 {
   margin-bottom: 10px;
 }
 
+@media (max-width: 1024px) {
+  header {
+    font-size: 65px;
+    padding: 50px;
+    height: 180px;
+  }
+   h2{
+    font-size: 70px;
+  }
+  .card {
+    flex: 0 0 calc(96% - 20px);
+    font-size: 50px;
+  }
+   .btn {
+       font-size: 50px;
+       padding: 25px;
+   }
+  .cart {
+    width: 90%;
+  }
+   .cart-link {
+    padding: 10px 20px;
+    font-size: 70px;
+    top: 30%;
+    right: 5%;
+  }
+    .carousel-btn {
+    font-size: 35px;
+  }
+}
+
+@media (max-width: 768px) {
+  header {
+    font-size: 40px;
+    padding: 50px;
+    height: 120px;
+  }
+  h2 {
+    padding-left: 5%;
+    font-size: 40px;
+  }
+  .card {
+    flex: 0 0 92%;
+  }
+  .cart {
+    width: 95%;
+    padding: 15px;
+  }
+  .cart-item {
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+    font-size: 14px;
+  }
+  .cart-link {
+    padding: 10px 20px;
+    font-size: 40px;
+    top: 30%;
+    right: 5%;
+  }
+  .carousel-btn {
+    font-size: 35px;
+  }
+}
+
 @font-face {
   font-family: 'MyCustomFont';
   src: url('54-font.otf') format('opentype');
 }
+
   </style>
 </head>
+
 
 <body>
 
@@ -228,7 +294,7 @@ let cardsPerView = getCardsPerView();
 
 function getCardsPerView() {
   if (window.innerWidth <= 768) return 1;   // телефон
-  if (window.innerWidth <= 1024) return 2;   // планшет
+  if (window.innerWidth <= 1024) return 1;   // планшет
   return 3;                                 // десктоп
 }
 
@@ -288,6 +354,7 @@ function handleSwipe() {
     document.querySelector(".prev").click();
   }
 }
+
 
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
