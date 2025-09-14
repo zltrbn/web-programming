@@ -28,6 +28,7 @@ h2 {
   color: #5c2a07;
 }
 
+/*карусель*/
 .carousel-container {
   width: 85%;
   margin: 25px auto;
@@ -41,7 +42,7 @@ h2 {
 }
 
 .card {
-  flex: 0 0 calc(33.333% - 50px);
+  flex: 0 0 calc(33.333% - 50px); /* 3 каточки */
   margin: 10px;
   padding: 15px;
   background: #fff;
@@ -84,56 +85,7 @@ h2 {
 .prev { left: 0; }
 .next { right: 0; }
 
-.cart {
-  width: 80%;
-  margin: 25px auto;
-  background: #fff;
-  border-radius: 15px;
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-
-.cart h3 { margin-bottom: 10px; }
-
-.cart-item {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 10px;
-  padding: 10px 0;
-  border-bottom: 1px solid #ddd;
-  align-items: center;
-}
-
-.cart-item button {
-  background: #ff6961;
-  border: none;
-  padding: 5px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 14px;
-}
-.cart-item button:hover { background: #ff4444; }
-
-.cart-total {
-  text-align: right;
-  font-weight: bold;
-  margin-top: 10px;
-  font-size: 18px;
-}
-
-.checkout-btn {
-  display: block;
-  margin: 15px auto;
-  background: #77dd77;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: bold;
-}
-.checkout-btn:hover { background: #32cd32; }
-
+/* корзина */
 .cart-link {
   position: absolute;
   top: 25%;
@@ -175,7 +127,7 @@ h2 {
     font-size: 70px;
   }
   .card {
-    flex: 0 0 calc(96% - 20px);
+    flex: 0 0 calc(96% - 20px); /* одна карточка */
     font-size: 50px;
   }
    .btn {
@@ -246,7 +198,7 @@ h2 {
 
 <h2>Популярные товары</h2>
 <div class="carousel-container">
-  <button class="carousel-btn prev">&#10094;</button>
+  <button class="carousel-btn prev">&#10094;</button> <!--Цифры - код стрелочки-->
   <div class="carousel-track">
     <div class="card" data-name="Соевый батончик" data-price="15">
       <img src="images/pic1.jpeg" alt="Соевый батончик">
@@ -330,6 +282,7 @@ window.addEventListener("resize", () => {
 
 updateCarousel();
 
+/* свайпы на мобильных устройствах */
 let startX = 0;
 let endX = 0;
 
@@ -355,7 +308,7 @@ function handleSwipe() {
   }
 }
 
-
+/* добавление товара в localstorage */
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
 document.querySelectorAll('.card .btn').forEach(btn => {
@@ -378,6 +331,7 @@ document.querySelectorAll('.card .btn').forEach(btn => {
 });
 updateCartCount();
 
+/* счетчик товаров */
 function updateCartCount() {
   let cart = JSON.parse(localStorage.getItem("cart")) || [];
   let totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
