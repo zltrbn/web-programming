@@ -1,1 +1,1 @@
-# Web programming labs
+Лабораторная 2 ToDo List
