@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Лакомка - Магазин сладостей</title>
+  <style>
+body {
+  font-family: Arial, sans-serif;
+  background-color: #fffaf0;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background: #ffb347;
+  padding: 35px;
+  text-align: left;
+  font-size: 40px;
+  font-weight: bold;
+  color: #5c2a07;
+  position: relative;
+}
+
+h2 {
+  padding-left: 10%;
+  text-align: left;
+  margin-top: 30px;
+  color: #5c2a07;
+}
+
+/*карусель*/
+.carousel-container {
+  width: 85%;
+  margin: 25px auto;
+  overflow: hidden;
+  position: relative;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.card {
+  flex: 0 0 calc(33.333% - 50px); /* 3 каточки */
+  margin: 10px;
+  padding: 15px;
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  text-align: center;
+  transition: transform 0.3s;
+}
+
+.card:hover { transform: translateY(-5px); }
+
+.card h3 { margin-bottom: 10px; color: #a0522d; }
+.card p { font-weight: bold; color: #444; }
+
+.btn {
+  padding: 8px 15px;
+  margin-top: 10px;
+  background: #ffb347;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+.btn:hover { background: #ff9933; }
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: transparent;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: bold;
+  z-index: 10;
+}
+.prev { left: 0; }
+.next { right: 0; }
+
+/* корзина */
+.cart-link {
+  position: absolute;
+  top: 25%;
+  right: 5%;
+  background: #ffb347;
+  padding: 15px 35px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  color: #5c2a07;
+}
+.cart-link:hover { background: #ff9933; }
+
+#cart-count {
+  font-family: Arial, sans-serif;
+  background: red;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 12px;
+  font-size: 30px;
+  margin-left: 8px;
+}
+
+.card img {
+  width: 100%;
+  height: 150px;
+  object-fit: contain;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 1024px) {
+  header {
+    font-size: 55px;
+    padding: 50px;
+    height: 180px;
+  }
+   h2{
+    font-size: 70px;
+  }
+  .card {
+    flex: 0 0 calc(96% - 20px); /* одна карточка */
+    font-size: 50px;
+  }
+   .btn {
+       font-size: 50px;
+       padding: 25px;
+   }
+  .cart {
+    width: 90%;
+  }
+   .cart-link {
+    padding: 10px 20px;
+    font-size: 70px;
+    top: 27%;
+    right: 5%;
+  }
+    .carousel-btn {
+    font-size: 35px;
+  }
+}
+
+@media (max-width: 768px) {
+  header {
+    font-size: 40px;
+    padding: 50px;
+    height: 120px;
+  }
+  h2 {
+    padding-left: 5%;
+    font-size: 40px;
+  }
+  .card {
+    flex: 0 0 92%;
+  }
+  .cart {
+    width: 95%;
+    padding: 15px;
+  }
+  .cart-item {
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+    font-size: 14px;
+  }
+  .cart-link {
+    padding: 10px 20px;
+    font-size: 40px;
+    top: 30%;
+    right: 5%;
+  }
+  .carousel-btn {
+    font-size: 35px;
+  }
+}
+
+@font-face {
+  font-family: 'MyCustomFont';
+  src: url('54-font.otf') format('opentype');
+}
+
+  </style>
+</head>
+
+
+<body>
+
+<header style='font-family: MyCustomFont'>Лакомка! <br>Магазин сладостей<br>
+  <a href="cart.html" class="cart-link">🛒<span id="cart-count">0</span> </a>
+</header>
+
+<h2>Популярные товары</h2>
+<div class="carousel-container">
+  <button class="carousel-btn prev">&#10094;</button> <!--Цифры - код стрелочки-->
+  <div class="carousel-track">
+    <div class="card" data-name="Соевый батончик" data-price="15">
+      <img src="images/pic1.jpeg" alt="Соевый батончик">
+      <h3>Соевый батончик</h3>
+      <p>15 ₽</p>
+      <button class="btn">В корзину</button>
+    </div>
+    <div class="card" data-name="Сникерс" data-price="50">
+      <img src="images/pic2.jpeg" alt="Соевый батончик2">
+      <h3>Сникерс</h3>
+      <p>50 ₽</p>
+      <button class="btn">В корзину</button>
+    </div>
+    <div class="card" data-name="Шоколадный трюфель" data-price="55">
+      <img src="images/pic3.jpeg" alt="Соевый батончик3">
+      <h3>Шоколадный трюфель</h3>
+      <p>55 ₽</p>
+      <button class="btn">В корзину</button>
+    </div>
+    <div class="card" data-name="Птичье молоко" data-price="45">
+      <img src="images/pic4.jpeg" alt="Соевый батончик4">
+      <h3>Птичье молоко</h3>
+      <p>45 ₽</p>
+      <button class="btn">В корзину</button>
+    </div>
+    <div class="card" data-name="Фруктовое желе" data-price="20">
+      <img src="images/pic5.jpeg" alt="Соевый батончик5">
+      <h3>Фруктовое желе</h3>
+      <p>20 ₽</p>
+      <button class="btn">В корзину</button>
+    </div>
+  </div>
+  <button class="carousel-btn next">&#10095;</button>
+</div>
+
+<script>
+
+const track = document.querySelector(".carousel-track");
+const cards = document.querySelectorAll(".card");
+const prevBtn = document.querySelector(".prev");
+const nextBtn = document.querySelector(".next");
+
+let index = 0;
+let cardsPerView = getCardsPerView();
+
+function getCardsPerView() {
+  if (window.innerWidth <= 768) return 1;   // телефон
+  if (window.innerWidth <= 1024) return 1;   // планшет
+  return 3;                                 // десктоп
+}
+
+function updateCarousel() {
+  const cardWidth = cards[0].offsetWidth + 20;
+  track.style.transform = `translateX(${-index * cardWidth}px)`;
+
+  prevBtn.disabled = index === 0;
+  nextBtn.disabled = index >= cards.length - cardsPerView;
+}
+
+nextBtn.addEventListener("click", () => {
+  if (index < cards.length - cardsPerView) {
+    index++;
+    updateCarousel();
+  }
+});
+
+prevBtn.addEventListener("click", () => {
+  if (index > 0) {
+    index--;
+    updateCarousel();
+  }
+});
+
+window.addEventListener("resize", () => {
+  cardsPerView = getCardsPerView();
+  if (index > cards.length - cardsPerView) {
+    index = cards.length - cardsPerView;
+  }
+  updateCarousel();
+});
+
+updateCarousel();
+
+/* свайпы на мобильных устройствах */
+let startX = 0;
+let endX = 0;
+
+const carousel = document.querySelector(".carousel-track");
+
+carousel.addEventListener("touchstart", (e) => {
+  startX = e.touches[0].clientX;
+});
+
+carousel.addEventListener("touchend", (e) => {
+  endX = e.changedTouches[0].clientX;
+  handleSwipe();
+});
+
+function handleSwipe() {
+  let diffX = startX - endX;
+
+  if (diffX > 50) {
+    document.querySelector(".next").click();
+  }
+  else if (diffX < -50) {
+    document.querySelector(".prev").click();
+  }
+}
+
+/* добавление товара в localstorage */
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+document.querySelectorAll('.card .btn').forEach(btn => {
+  btn.addEventListener('click', e => {
+    const card = e.target.closest('.card');
+    const name = card.dataset.name;
+    const price = +card.dataset.price;
+
+    const existing = cart.find(item => item.name === name);
+    if (existing) {
+      existing.quantity++;
+    } else {
+      cart.push({ name, price, quantity: 1 });
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+    alert(`${name} добавлен в корзину!`);
+	updateCartCount();
+  });
+});
+updateCartCount();
+
+/* счетчик товаров */
+function updateCartCount() {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  let totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+  document.getElementById("cart-count").textContent = totalCount;
+}
+
+updateCartCount();
+
+</script>
+</body>
+</html>
