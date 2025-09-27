@@ -74,9 +74,15 @@ function onAdd() {
 function renderList() {
   const list = document.getElementById('task-list');
   list.innerHTML = '';
+  if (tasks.length === 0) {
+    const empty = document.createElement('div');
+    empty.textContent = 'Задач нет';
+    list.appendChild(empty);
+    return;
+  }
   tasks.forEach(t => {
     const el = document.createElement('div');
-    el.textContent = t.title;
+    el.textContent = `${t.title} (${t.due ? new Date(t.due).toLocaleDateString() : '—'})`;
     list.appendChild(el);
   });
 }
