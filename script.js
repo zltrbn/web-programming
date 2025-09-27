@@ -71,6 +71,31 @@ function onAdd() {
   renderList();
 }
 
+function removeTask(id) {
+  tasks = tasks.filter(t => t.id !== id);
+  save();
+  renderList();
+}
+
+function editTask(id) {
+  const t = tasks.find(x => x.id === id);
+  if (!t) return;
+  const newTitle = prompt('Новое название:', t.title);
+  if (newTitle !== null) {
+    t.title = newTitle.trim();
+    save();
+    renderList();
+  }
+}
+
+function toggleComplete(id) {
+  const t = tasks.find(x => x.id === id);
+  if (!t) return;
+  t.completed = !t.completed;
+  save();
+  renderList();
+}
+
 function renderList() {
   const list = document.getElementById('task-list');
   list.innerHTML = '';
@@ -82,7 +107,21 @@ function renderList() {
   }
   tasks.forEach(t => {
     const el = document.createElement('div');
-    el.textContent = `${t.title} (${t.due ? new Date(t.due).toLocaleDateString() : '—'})`;
+    el.textContent = `${t.completed ? '✔ ' : ''}${t.title} (${t.due ? new Date(t.due).toLocaleDateString() : '—'})`;
+
+    const editBtn = document.createElement('button');
+    editBtn.textContent = 'Изм';
+    editBtn.onclick = () => editTask(t.id);
+
+    const delBtn = document.createElement('button');
+    delBtn.textContent = 'Удал';
+    delBtn.onclick = () => removeTask(t.id);
+
+    const toggleBtn = document.createElement('button');
+    toggleBtn.textContent = '✔';
+    toggleBtn.onclick = () => toggleComplete(t.id);
+
+    el.append(' ', editBtn, delBtn, toggleBtn);
     list.appendChild(el);
   });
 }
