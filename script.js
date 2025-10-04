@@ -24,10 +24,10 @@ function uid(){ return Math.random().toString(36).slice(2,9) }
 
 // строим интерфейс приложения
 function buildUI(){
-  const container = document.createElement('div');
+  const container = document.createElement('main');
   container.className = 'container';
 
-  const header = document.createElement('div');
+  const header = document.createElement('header');
   header.className='header';
 
   const title = document.createElement('h1');
@@ -35,7 +35,7 @@ function buildUI(){
   title.textContent = 'ToDo List';
   header.appendChild(title);
 
-  const card = document.createElement('div');
+  const card = document.createElement('section');
   card.className='card';
   const form = document.createElement('form');
   form.className='form';
@@ -60,7 +60,7 @@ function buildUI(){
   form.append(input,date,addBtn);
   card.appendChild(form);
 
-  const controls = document.createElement('div'); controls.className='controls';
+  const controls = document.createElement('aside'); controls.className='controls';
   const toolbar = document.createElement('div'); toolbar.className='toolbar';
 
   const searchBlock = document.createElement('div');
@@ -107,12 +107,15 @@ function buildUI(){
   container.appendChild(header);
 
   // список задач
-  const listCard = document.createElement('div'); listCard.className='card';
+  const listCard = document.createElement('section'); listCard.className='card';
   const list = document.createElement('div'); list.className='list'; list.id='task-list'; listCard.appendChild(list);
   container.appendChild(listCard);
 
   // вставляем всё в body
   document.body.appendChild(container);
+
+  // настраиваем драг анд дроп
+  setupDragAndDrop(list);
 }
 
 // добавление задачи
@@ -184,13 +187,13 @@ function renderList(){
     const e = document.createElement('div'); e.className='empty'; e.textContent='Задач нет'; list.appendChild(e); return;
   }
   items.forEach(t=>{
-    const el = document.createElement('div'); el.className='task'; el.draggable = true; el.dataset.id = t.id;
+    const el = document.createElement('article'); el.className='task'; el.draggable = true; el.dataset.id = t.id;
     if(t.completed) el.classList.add('completed');
 
     const ch = document.createElement('input'); ch.type='checkbox'; ch.checked = t.completed; ch.onchange = ()=>toggleComplete(t.id);
-    const meta = document.createElement('div'); meta.className='meta';
+    const meta = document.createElement('section'); meta.className='meta';
     const title = document.createElement('div'); title.className='title'; title.textContent = t.title;
-    const date = document.createElement('div'); date.className='date'; date.textContent = t.due ? new Date(t.due).toLocaleDateString() : '—';
+    const date = document.createElement('time'); date.className='date'; date.textContent = t.due ? new Date(t.due).toLocaleDateString() : '—';
     meta.append(title,date);
 
     const actions = document.createElement('div'); actions.className='actions';
@@ -201,6 +204,42 @@ function renderList(){
     el.append(ch,meta,actions);
     list.appendChild(el);
   });
+}
+
+// функции драг анд дроп
+function setupDragAndDrop(list){
+  let dragEl = null;
+  list.addEventListener('dragstart', e=>{
+    const t = e.target.closest('.task');
+    if(!t) return; dragEl = t; t.classList.add('dragging');
+    e.dataTransfer.effectAllowed = 'move';
+  });
+  list.addEventListener('dragend', ()=>{ if(dragEl) dragEl.classList.remove('dragging'); dragEl=null; });
+
+  list.addEventListener('dragover', e=>{
+    e.preventDefault();
+    const after = getDragAfterElement(list, e.clientY);
+    if(after == null) list.appendChild(dragEl);
+    else list.insertBefore(dragEl, after);
+  });
+
+  list.addEventListener('drop', ()=>{
+    const ids = Array.from(list.querySelectorAll('.task')).map(el=>el.dataset.id);
+    const map = Object.fromEntries(tasks.map(t=>[t.id,t]));
+    tasks = ids.map(id=>map[id]).filter(Boolean);
+    save(); renderList();
+  });
+}
+
+function getDragAfterElement(container, y){
+  const els = [...container.querySelectorAll('.task:not(.dragging)')];
+  return els.reduce((closest, child)=>{
+    const box = child.getBoundingClientRect();
+    const offset = y - box.top - box.height/2;
+    if(offset < 0 && offset > closest.offset){
+      return { offset, element: child };
+    } else return closest;
+  }, { offset: Number.NEGATIVE_INFINITY }).element;
 }
 
 // запуск программы
