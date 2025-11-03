@@ -21,7 +21,6 @@ body{
   padding:20px;
 }
 
-/* Topbar */
 .topbar{
   width:100%;
   max-width:900px;
@@ -36,7 +35,6 @@ body{
 .score-box div:last-child{font-weight:700;font-size:18px}
 .controls button{margin-left:6px;padding:6px 8px;border-radius:6px;border:1px solid #ccc;background:#fff;cursor:pointer}
 
-/* Game area */
 .main{width:100%;max-width:900px;display:flex;gap:20px;flex-direction:column;align-items:center}
 .game-area{position:relative}
 .grid{
@@ -56,3 +54,5 @@ body{
   min-width:var(--tile-size);
   min-height:var(--tile-size);
 }
+
+
