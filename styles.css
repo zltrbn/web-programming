@@ -82,3 +82,24 @@ body{
 .tile.v1024{ background:#edc53f; color:#fff; font-size:16px; }
 .tile.v2048{ background:#edc22e; color:#fff; font-size:16px; }
 
+.overlay{
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,0.45);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.overlay.hidden{display:none}
+.overlay-content{
+  background:#fff;padding:18px;border-radius:10px;min-width:280px;text-align:center;
+}
+.overlay-actions{display:flex;gap:8px;justify-content:center;margin-top:8px}
+.overlay input{padding:8px;width:190px;border-radius:6px;border:1px solid #ccc}
+
+.modal{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);background:#fff;padding:14px;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.15);width:90%;max-width:520px;z-index:40}
+.modal.hidden{display:none}
+.modal table{width:100%;border-collapse:collapse}
+.modal th, .modal td{padding:8px;border-bottom:1px solid #eee;text-align:left}
+.modal-actions{display:flex;justify-content:flex-end;margin-top:8px}
+

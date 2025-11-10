@@ -18,6 +18,7 @@
       <div class="controls">
         <button id="undoBtn" title="Отменить ход">↶ Undo</button>
         <button id="restartBtn" title="Начать заново">⟲ Restart</button>
+        <button id="leaderBtn" title="Таблица лидеров">🏆 Leaders</button>
       </div>
     </div>
   </header>
@@ -25,7 +26,36 @@
   <main class="main">
     <section class="game-area">
       <div id="grid" class="grid"></div>
+
+      <div id="overlay" class="overlay hidden">
+        <div class="overlay-content" id="gameoverBox">
+          <p id="gameoverMsg">Игра завершена</p>
+          <div id="saveForm">
+            <input id="playerName" placeholder="Введите имя" maxlength="30"/>
+            <div class="overlay-actions">
+              <button id="saveScoreBtn">Сохранить результат</button>
+              <button id="overlayRestartBtn" title="Начать заново">⟲</button>
+            </div>
+          </div>
+          <div id="savedMsg" class="hidden">Ваш рекорд сохранён ✅</div>
+        </div>
+      </div>
     </section>
+
+    <aside id="leaderboardModal" class="modal hidden" aria-hidden="true">
+      <div class="modal-inner">
+        <h2>Таблица лидеров</h2>
+        <table id="leaderboardTable">
+          <thead>
+            <tr><th>#</th><th>Имя</th><th>Очки</th><th>Дата</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <div class="modal-actions">
+          <button id="closeLeaderBtn">Закрыть</button>
+        </div>
+      </div>
+    </aside>
   </main>
 
   <script src="script.js" defer></script>

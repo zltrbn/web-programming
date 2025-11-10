@@ -4,6 +4,16 @@
   const scoreEl = document.getElementById('score');
   const undoBtn = document.getElementById('undoBtn');
   const restartBtn = document.getElementById('restartBtn');
+  const overlay = document.getElementById('overlay');
+  const gameoverMsg = document.getElementById('gameoverMsg');
+  const saveForm = document.getElementById('saveForm');
+  const playerNameInput = document.getElementById('playerName');
+  const saveScoreBtn = document.getElementById('saveScoreBtn');
+  const savedMsg = document.getElementById('savedMsg');
+  const leaderBtn = document.getElementById('leaderBtn');
+  const leaderboardModal = document.getElementById('leaderboardModal');
+  const leaderTableBody = document.querySelector('#leaderboardTable tbody');
+  const closeLeaderBtn = document.getElementById('closeLeaderBtn');
 
   let grid = createEmptyGrid();
   let score = 0;
@@ -196,6 +206,53 @@
 
   undoBtn.addEventListener('click', undo);
   restartBtn.addEventListener('click', restart);
+
+    function getLeaderboard() {
+    const raw = localStorage.getItem(LEAD_KEY);
+    return raw ? JSON.parse(raw) : [];
+  }
+  function saveLeaderboard(arr) {
+    localStorage.setItem(LEAD_KEY, JSON.stringify(arr));
+  }
+
+  function showGameOver() {
+    overlay.classList.remove('hidden');
+    gameoverMsg.textContent = 'Игра завершена';
+    saveForm.classList.remove('hidden');
+    savedMsg.classList.add('hidden');
+  }
+
+  function hideOverlay() {
+    overlay.classList.add('hidden');
+  }
+
+  function saveCurrentScore(name) {
+    const arr = getLeaderboard();
+    arr.push({ name, score, date: new Date().toISOString() });
+    arr.sort((a, b) => b.score - a.score);
+    saveLeaderboard(arr.slice(0, 100));
+    savedMsg.classList.remove('hidden');
+    saveForm.classList.add('hidden');
+  }
+
+  saveScoreBtn.addEventListener('click', () => {
+    const name = playerNameInput.value.trim() || 'Anonymous';
+    saveCurrentScore(name);
+  });
+
+  function showLeaderboard() {
+    const arr = getLeaderboard().slice(0, 10);
+    leaderTableBody.innerHTML = '';
+    arr.forEach((r, i) => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td>${i + 1}</td><td>${r.name}</td><td>${r.score}</td><td>${new Date(r.date).toLocaleString()}</td>`;
+      leaderTableBody.appendChild(tr);
+    });
+    leaderboardModal.classList.remove('hidden');
+  }
+
+  leaderBtn.addEventListener('click', showLeaderboard);
+  closeLeaderBtn.addEventListener('click', () => leaderboardModal.classList.add('hidden'));
 
   (function init() {
     for (let i = 0; i < SIZE * SIZE; i++) {
