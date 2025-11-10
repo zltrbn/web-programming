@@ -103,3 +103,13 @@ body{
 .modal th, .modal td{padding:8px;border-bottom:1px solid #eee;text-align:left}
 .modal-actions{display:flex;justify-content:flex-end;margin-top:8px}
 
+.mobile-controls{
+  display:none;
+  position:fixed;
+  right:18px;
+  bottom:18px;
+  gap:8px;
+  z-index:30;
+  align-items:center;
+}
+.mobile-controls button{padding:10px 12px;border-radius:8px;border:none;background:#fff;box-shadow:0 6px 18px rgba(0,0,0,.12);font-size:18px}

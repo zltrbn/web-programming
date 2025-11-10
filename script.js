@@ -14,6 +14,7 @@
   const leaderboardModal = document.getElementById('leaderboardModal');
   const leaderTableBody = document.querySelector('#leaderboardTable tbody');
   const closeLeaderBtn = document.getElementById('closeLeaderBtn');
+  const mobileControls = document.getElementById('mobileControls');
 
   let grid = createEmptyGrid();
   let score = 0;
@@ -253,6 +254,46 @@
 
   leaderBtn.addEventListener('click', showLeaderboard);
   closeLeaderBtn.addEventListener('click', () => leaderboardModal.classList.add('hidden'));
+
+    mobileControls.addEventListener('click', e => {
+    const b = e.target.closest('button');
+    if (!b) return;
+    const dir = b.dataset.dir;
+    if (dir) move(dir);
+  });
+
+  (function addSwipeListeners() {
+    let startX = 0, startY = 0;
+    gridEl.addEventListener('touchstart', e => {
+      const t = e.changedTouches[0];
+      startX = t.pageX; startY = t.pageY;
+    }, { passive: true });
+
+    gridEl.addEventListener('touchend', e => {
+      const t = e.changedTouches[0];
+      const distX = t.pageX - startX;
+      const distY = t.pageY - startY;
+      if (Math.abs(distX) < 20 && Math.abs(distY) < 20) return;
+      if (Math.abs(distX) > Math.abs(distY))
+        move(distX > 0 ? 'right' : 'left');
+      else
+        move(distY > 0 ? 'down' : 'up');
+    }, { passive: true });
+  })();
+
+  saveScoreBtn.addEventListener('click', () => {
+    const name = playerNameInput.value.trim() || 'Anonymous';
+    saveCurrentScore(name);
+    saveScoreBtn.disabled = true;
+    playerNameInput.disabled = true;
+    saveForm.classList.add('hidden');
+    savedMsg.classList.remove('hidden');
+    setTimeout(() => {
+      overlay.classList.add('hidden');
+      saveScoreBtn.disabled = false;
+      playerNameInput.disabled = false;
+    }, 1500);
+  });
 
   (function init() {
     for (let i = 0; i < SIZE * SIZE; i++) {
