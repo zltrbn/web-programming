@@ -21,7 +21,7 @@ export default class UIManager {
     this.saveScoreBtn = document.getElementById('saveScoreBtn');
     this.overlayRestartBtn = document.getElementById('overlayRestartBtn');
     this.savedMsg = document.getElementById('savedMsg');
-    this.mobileControls = document.getElementById('mobileСontrols');
+    this.mobileControls = document.getElementById('mobileControls');
 
     this._swipe = { startX:0, startY:0 };
 
