@@ -21,7 +21,7 @@ export default class UIManager {
     this.saveScoreBtn = document.getElementById('saveScoreBtn');
     this.overlayRestartBtn = document.getElementById('overlayRestartBtn');
     this.savedMsg = document.getElementById('savedMsg');
-    this.mobileControls = document.getElementById('mobileControls');
+    this.mobileControls = document.getElementById('mobileСontrols');
 
     this._swipe = { startX:0, startY:0 };
 
@@ -156,18 +156,39 @@ export default class UIManager {
     this.initMobileControlsVisibility(true);
   }
 
-  showLeaderboard(){
-    const arr = this.storage.getLeaderboard().slice().sort((a,b)=>b.score-a.score).slice(0,10);
-    this.leaderTableBody.innerHTML = '';
-    arr.forEach((rec, idx) => {
-      const tr = document.createElement('tr');
-      tr.innerHTML = `<td>${idx+1}</td><td>${this.escapeHtml(rec.name)}</td><td>${rec.score}</td><td>${new Date(rec.date).toLocaleString()}</td>`;
-      this.leaderTableBody.appendChild(tr);
-    });
-    this.leaderboardModal.classList.remove('hidden');
-    this.leaderboardModal.setAttribute('aria-hidden','false');
-    this.initMobileControlsVisibility(false);
-  }
+//без innerHTML
+showLeaderboard() {
+  const arr = this.storage
+    .getLeaderboard()
+    .slice()
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 10);
+
+  this.leaderTableBody.innerHTML = '';
+  arr.forEach((rec, idx) => {
+    const tr = document.createElement('tr');
+    const tdPos = document.createElement('td');
+    tdPos.textContent = idx + 1;
+    const tdName = document.createElement('td');
+    tdName.textContent = rec.name;
+    const tdScore = document.createElement('td');
+    tdScore.textContent = rec.score;
+    const tdDate = document.createElement('td');
+    tdDate.textContent = new Date(rec.date).toLocaleString();
+
+    tr.appendChild(tdPos);
+    tr.appendChild(tdName);
+    tr.appendChild(tdScore);
+    tr.appendChild(tdDate);
+
+    this.leaderTableBody.appendChild(tr);
+  });
+
+  this.leaderboardModal.classList.remove('hidden');
+  this.leaderboardModal.setAttribute('aria-hidden', 'false');
+  this.initMobileControlsVisibility(false);
+}
+
 
   closeLeaderboard(){
     this.leaderboardModal.classList.add('hidden');
