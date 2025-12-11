@@ -15,3 +15,8 @@ export function loadStateFromStorage(){
     console.warn("Ошибка localStorage", e);
   }
 }
+
+export function saveStateToStorage(){
+  localStorage.setItem(STORAGE_KEYS.currentLocation, JSON.stringify(state.currentLocation));
+  localStorage.setItem(STORAGE_KEYS.otherCities, JSON.stringify(state.otherCities));
+}
