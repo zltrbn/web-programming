@@ -78,3 +78,9 @@ body{
 .forecast-item{display:flex;justify-content:space-between;align-items:center;padding:8px;border-radius:8px;border:1px solid #f1f3f5}
 .forecast-item .day{font-weight:600}
 .forecast-item .temp{font-weight:700}
+
+@media (max-width:520px){
+  .add-city form{flex-direction:column;align-items:stretch}
+  .controls{display:flex;gap:8px}
+}
+.hidden{display:none}
