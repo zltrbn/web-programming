@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <title>Weather Lab</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="app__header">
+      <h1>Прогноз погоды</h1>
+      <div class="controls">
+        <button id="refreshBtn">Обновить</button>
+      </div>
+    </header>
+
+    <section id="status" class="status"></section>
+
+    <section class="add-city">
+      <form id="cityForm" autocomplete="off">
+        <label for="cityInput">Добавить город</label>
+        <div class="autocomplete">
+          <input id="cityInput" name="city" placeholder="Введите название города" />
+          <ul id="suggestions" class="suggestions hidden"></ul>
+        </div>
+        <div class="error" id="cityError"></div>
+        <button type="submit">Добавить</button>
+      </form>
+    </section>
+
+    <section id="locations" class="locations"></section>
+
+    <footer class="app__footer">
+      <p>Текущее местоположение или введённый город сохраняются в localStorage.</p>
+    </footer>
+  </main>
+
+  <template id="locationCardTemplate">
+    <article class="card">
+      <header class="card__header">
+        <h2 class="card__title"></h2>
+        <button class="card__remove" title="Удалить">✖</button>
+      </header>
+      <div class="card__body">
+        <div class="loading">Загрузка...</div>
+        <div class="error hidden"></div>
+        <ul class="forecast-list"></ul>
+      </div>
+    </article>
+  </template>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

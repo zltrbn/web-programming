@@ -1,0 +1,86 @@
+:root{
+  --bg:#f7f8fb;
+  --card:#ffffff;
+  --accent:#2b7cff;
+  --muted:#6b7280;
+  --danger:#e05252;
+  --radius:12px;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background:var(--bg);
+  color:#111827;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  padding:16px;
+}
+
+.app{max-width:1000px;margin:0 auto;}
+
+.app__header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+  margin-bottom:12px;
+}
+.app__header h1{font-size:1.25rem;margin:0}
+.controls button{
+  background:var(--accent);
+  color:#fff;border:0;padding:8px 12px;border-radius:8px;cursor:pointer;
+}
+.controls button:active{transform:translateY(1px)}
+
+.status{margin:8px 0;color:var(--muted);font-size:0.95rem}
+
+.add-city{
+  background:var(--card);
+  padding:12px;border-radius:var(--radius);
+  box-shadow:0 2px 8px rgba(16,24,40,0.04);
+  margin-bottom:12px;
+}
+
+.add-city form{display:flex;gap:8px;align-items:flex-start;flex-wrap:wrap}
+.add-city label{width:100%}
+.add-city input{
+  padding:8px;border-radius:8px;border:1px solid #e6e9ee;min-width:220px;
+}
+.add-city button{padding:8px 12px;border-radius:8px;border:0;background:var(--accent);color:#fff;cursor:pointer}
+
+.suggestions{list-style:none;margin:0;padding:4px;border:1px solid #e6e9ee;border-top:0;background:#fff;border-radius:0 0 8px 8px;max-height:160px;overflow:auto}
+.suggestions li{padding:6px 8px;cursor:pointer}
+.suggestions li:hover{background:#f1f5ff}
+
+.error{color:var(--danger);font-size:0.9rem;margin-top:6px}
+
+.locations{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:12px;
+}
+
+.card{
+  background:var(--card);
+  padding:12px;border-radius:var(--radius);
+  box-shadow:0 2px 8px rgba(16,24,40,0.04);
+}
+.card__header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.card__title{margin:0;font-size:1rem}
+.card__remove{background:transparent;border:0;cursor:pointer;font-size:1rem}
+
+.loading{color:var(--muted)}
+.card .error{color:var(--danger)}
+
+.forecast-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
+.forecast-item{display:flex;justify-content:space-between;align-items:center;padding:8px;border-radius:8px;border:1px solid #f1f3f5}
+.forecast-item .day{font-weight:600}
+.forecast-item .temp{font-weight:700}
+
+@media (max-width:520px){
+  .add-city form{flex-direction:column;align-items:stretch}
+  .controls{display:flex;gap:8px}
+}
+.hidden{display:none}
