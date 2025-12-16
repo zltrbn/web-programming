@@ -91,6 +91,6 @@
 
 ## Ссылка на видеодемонстрацию
 
-https://drive.google.com/file/d/1ZIDEiFWZ_FjB0rBajfOVUcBYnNl_XSt7/view?usp=share_link
+https://drive.google.com/file/d/1jyLVunt7_RV0B5eGA_d9zwaMMjWjtdTF/view?usp=sharing
 
 Список городов сохраняется в **LocalStorage**, поэтому при повторном визите пользователь сразу видит свои локации и их текущий прогноз.
