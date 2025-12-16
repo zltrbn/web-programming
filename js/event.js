@@ -103,7 +103,14 @@ export function renderAll() {
   clearLocations();
 
   if (state.currentLocation) {
-    const { card } = createCardForLocation(state.currentLocation, true);
+    const { card, removeBtn } = createCardForLocation(state.currentLocation, true);
+    if (removeBtn) {
+      removeBtn.addEventListener('click', () => {
+        state.currentLocation = null;
+        saveStateToStorage();
+        renderAll();
+      });
+    }
     selectors.locations.appendChild(card);
     loadWeatherIntoCard(state.currentLocation, card);
   }
@@ -141,12 +148,13 @@ export function requestGeolocation() {
       saveStateToStorage();
       selectors.status.textContent = "Получаем прогноз...";
       renderAll();
+      console.log(lat, lon);
     },
     err => {
       console.info("Ошибка геолокации:", err);
       selectors.status.textContent = "Геолокация не получена. Введите город.";
       showCityEntry();
-    }
+    },
   );
 }
 
